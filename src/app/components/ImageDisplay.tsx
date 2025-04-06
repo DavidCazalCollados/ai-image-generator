@@ -34,6 +34,8 @@ export default function ImageDisplay({ imageUrl, prompt, isLoading }: ImageDispl
     <div className="w-full max-w-md flex flex-col space-y-4">
       <div className="relative rounded-lg overflow-hidden shadow-lg">
         <Image
+          width={1024}
+          height={1024}
           src={imageUrl}
           alt={prompt || "Image générée par IA"}
           className="w-full h-auto"

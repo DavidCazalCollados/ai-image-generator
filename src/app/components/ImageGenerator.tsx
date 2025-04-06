@@ -30,7 +30,7 @@ export default function ImageGenerator() {
       setImageUrl(data.imageUrl);
     } catch (error) {
         console.error('Erreur:', error);
-        alert('Une erreur est survenue lors de la génération de l&apos;image');
+        alert("Une erreur est survenue lors de la génération de l'image");
     } finally {
       setIsLoading(false);
     }
