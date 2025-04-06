@@ -23,7 +23,7 @@ export default function ImageGenerator() {
       });
 
       if (!response.ok) {
-        throw new Error('Erreur lors de la génération de l&apos;image');
+        throw new Error("Erreur lors de la génération de l'image");
       }
 
       const data = await response.json();

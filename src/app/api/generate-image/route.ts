@@ -5,7 +5,7 @@ import OpenAI from 'openai';
 
 // Initialiser le client OpenAI
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.OPEN_API_KEY,
 });
 
 export async function POST(request: Request) {

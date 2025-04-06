@@ -36,7 +36,7 @@ export default function PromptInput({ onGenerate, isLoading }: PromptInputProps)
           disabled={isLoading || !prompt.trim()}
           className={`px-4 py-2 font-bold text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition-colors ${(isLoading || !prompt.trim()) ? 'opacity-50 cursor-not-allowed' : ''}`}
         >
-          {isLoading ? 'Génération en cours...' : 'Générer l&apos;image'}
+          {isLoading ? 'Génération en cours...' : "Générer l'image"}
         </button>
       </div>
     </form>
