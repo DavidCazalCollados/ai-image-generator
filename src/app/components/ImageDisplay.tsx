@@ -7,12 +7,6 @@ interface ImageDisplayProps {
   isLoading: boolean;
 }
 
-interface ImageDisplayProps {
-  imageUrl: string | null;
-  prompt: string | null;
-  isLoading: boolean;
-}
-
 export default function ImageDisplay({ imageUrl, prompt, isLoading }: ImageDisplayProps) {
   const handleDownload = () => {
     if (!imageUrl) return;
