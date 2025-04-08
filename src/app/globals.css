@@ -8,6 +8,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-subtext: #663C1F;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -22,5 +23,15 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-global);
+}
+
+h1 {
+  font-family: var(--font-playfair), serif;
+}
+
+.subtext {
+  color: var(--color-subtext);
+  font-family: var(--font-subtext);
+  font-weight: 500;
 }
