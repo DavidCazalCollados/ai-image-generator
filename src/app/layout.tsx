@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Playfair_Display, Marcellus, DM_Serif_Display, Roboto, Lora } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -11,6 +11,42 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+
+const lora = Lora({
+  variable: "--font-subtext",
+  subsets: ["latin"],
+  weight: ['400', '500', '600'], // choisis selon ton style
+  display: 'swap'
+});
+
+const roboto = Roboto({
+  variable: "--font-global",
+  subsets: ["latin"],
+  weight: ['100','200','400', '500', '700'], // choisis selon ton style)
+  display: 'swap',
+});
+
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  weight: ['400', '700'], // choisis selon ton style
+  variable: '--font-playfair',
+  display: 'swap',
+});
+
+const marcellus = Marcellus({
+  subsets: ['latin'],
+  weight: ['400'],
+  variable: '--font-marcellus',
+  display: 'swap',
+});
+
+const serifDisplay = DM_Serif_Display({
+  subsets: ['latin'],
+  weight: ['400'],
+  variable: '--font-serif-display',
+  display: 'swap',
+});
+
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -25,7 +61,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${roboto.variable} ${geistSans.variable} ${geistMono.variable} ${playfair.variable} ${marcellus.variable} ${serifDisplay.variable} ${lora.variable} antialiased`}
       >
         {children}
       </body>
