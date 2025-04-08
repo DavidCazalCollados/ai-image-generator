@@ -19,8 +19,8 @@ export default function PromptInput({ onGenerate, isLoading }: PromptInputProps)
   return (
     <form onSubmit={handleSubmit} className="w-full max-w-xl">
       <div className="flex flex-col space-y-4">
-        <label htmlFor="prompt" className="text-lg font-medium">
-          Décrivez l&apos;image que vous souhaitez générer
+        <label htmlFor="prompt" className="font-medium text-lg">
+          Describe the image you want to generate.
         </label>
         <textarea
           id="prompt"
