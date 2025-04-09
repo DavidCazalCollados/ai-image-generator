@@ -19,12 +19,14 @@ export default function PromptInput({ onGenerate, isLoading }: PromptInputProps)
   return (
     <form onSubmit={handleSubmit} className="w-full max-w-xl">
       <div className="flex flex-col space-y-4">
-        <label htmlFor="prompt" className="font-medium text-lg">
+        <label htmlFor="prompt" className="font-medium text-md">
           Describe the image you want to generate.
         </label>
         <textarea
           id="prompt"
-          className="w-full p-3 border rounded-lg resize-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          className="w-full p-3 border border-gray-400 rounded-lg outline-none ring-0
+            focus:ring focus:ring-yellow-800 focus:border-yellow-800 focus:outline-none
+          active:border-yellow-800 active:outline-none !ring-opacity-50"
           rows={4}
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
@@ -34,7 +36,7 @@ export default function PromptInput({ onGenerate, isLoading }: PromptInputProps)
         <button
           type="submit"
           disabled={isLoading || !prompt.trim()}
-          className={`px-4 py-2 font-bold text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition-colors ${(isLoading || !prompt.trim()) ? 'opacity-50 cursor-not-allowed' : ''}`}
+          className={`px-4 py-2 font-bold text-white bg-yellow-800 rounded-lg hover:bg-yellow-800 transition-colors ${(isLoading || !prompt.trim()) ? 'opacity-50 cursor-not-allowed' : ''}`}
         >
           {isLoading ? 'Génération en cours...' : "Générer l'image"}
         </button>

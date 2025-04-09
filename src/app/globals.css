@@ -31,7 +31,10 @@ h1 {
 }
 
 .subtext {
-  color: var(--color-subtext);
   font-family: var(--font-subtext);
   font-weight: 400;
+}
+
+.subtext-color {
+  color: var(--color-subtext);
 }
