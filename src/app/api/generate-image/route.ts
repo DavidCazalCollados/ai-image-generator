@@ -1,9 +1,22 @@
 import { NextResponse } from 'next/server';
 import Replicate from 'replicate';
 
+// Définir une interface pour les paramètres d'entrée de l'API Replicate
+interface ReplicateInput {
+  prompt: string;
+  negative_prompt: string;
+  width: number;
+  height: number;
+  num_outputs: number;
+  guidance_scale: number;
+  prompt_strength: number;
+  num_inference_steps: number;
+  image?: string; // Optionnel pour l'image de référence
+}
+
 export async function POST(request: Request) {
   try {
-    const { prompt } = await request.json();
+    const { prompt, imageUrl } = await request.json();
 
     if (!prompt) {
       return NextResponse.json(
@@ -16,26 +29,35 @@ export async function POST(request: Request) {
       auth: process.env.REPLICATE_API_TOKEN,
     });
 
-// Ce modèle est excellent pour les intérieurs
     const model = "adirik/interior-design:76604baddc85b1b4616e1c6475eca080da339c8875bd4996705440484a6eac38";
 
-// On peut ajouter un prompt spécialisé pour les intérieurs
     const enhancedPrompt = `Interior design, ${prompt}, professional photograph, detailed, 8k, realistic, natural lighting`;
 
+    // Préparer les inputs avec le typage approprié
+    const input: ReplicateInput = {
+      prompt: enhancedPrompt,
+      negative_prompt: "lowres, watermark, banner, logo, watermark, contactinfo, text, deformed, blurry, blur, out of focus, out of frame, surreal, extra, ugly, upholstered walls, fabric walls, plush walls, mirror, mirrored, functional, realistic",
+      width: 1024,
+      height: 1024,
+      num_outputs: 1,
+      guidance_scale: 15,
+      prompt_strength: 0.8,
+      num_inference_steps: 50
+    };
+
+    // Si une image de référence est fournie, l'ajouter aux inputs
+    if (imageUrl) {
+      input.image = imageUrl;
+    }
+
     const output = await replicate.run(model, {
-      input: {
-        prompt: enhancedPrompt,
-        negative_prompt: "lowres, watermark, banner, logo, watermark, contactinfo, text, deformed, blurry, blur, out of focus, out of frame, surreal, extra, ugly, upholstered walls, fabric walls, plush walls, mirror, mirrored, functional, realistic",
-        width: 1024,
-        height: 1024,
-        num_outputs: 1
-      }
+      input: input
     });
 
-// Replicate renvoie un tableau avec l'URL de l'image générée
-    const imageUrl = Array.isArray(output) ? output[0] : null;
+    // Replicate renvoie un tableau avec l'URL de l'image générée
+    const generatedImageUrl = Array.isArray(output) ? output[0] : null;
 
-    return NextResponse.json({ imageUrl });
+    return NextResponse.json({ imageUrl: generatedImageUrl });
   } catch (error) {
     console.error('Error generating image:', error);
     return NextResponse.json(
@@ -44,6 +66,52 @@ export async function POST(request: Request) {
     );
   }
 }
+
+
+// import { NextResponse } from 'next/server';
+// import Replicate from 'replicate';
+
+// export async function POST(request: Request) {
+//   try {
+//     const { prompt } = await request.json();
+
+//     if (!prompt) {
+//       return NextResponse.json(
+//         { error: 'Prompt is required' },
+//         { status: 400 }
+//       );
+//     }
+
+//     const replicate = new Replicate({
+//       auth: process.env.REPLICATE_API_TOKEN,
+//     });
+
+//     const model = "adirik/interior-design:76604baddc85b1b4616e1c6475eca080da339c8875bd4996705440484a6eac38";
+
+//     const enhancedPrompt = `Interior design, ${prompt}, professional photograph, detailed, 8k, realistic, natural lighting`;
+
+//     const output = await replicate.run(model, {
+//       input: {
+//         prompt: enhancedPrompt,
+//         negative_prompt: "lowres, watermark, banner, logo, watermark, contactinfo, text, deformed, blurry, blur, out of focus, out of frame, surreal, extra, ugly, upholstered walls, fabric walls, plush walls, mirror, mirrored, functional, realistic",
+//         width: 1024,
+//         height: 1024,
+//         num_outputs: 1
+//       }
+//     });
+
+// // Replicate renvoie un tableau avec l'URL de l'image générée
+//     const imageUrl = Array.isArray(output) ? output[0] : null;
+
+//     return NextResponse.json({ imageUrl });
+//   } catch (error) {
+//     console.error('Error generating image:', error);
+//     return NextResponse.json(
+//       { error: 'Failed to generate image' },
+//       { status: 500 }
+//     );
+//   }
+// }
 
 
 
